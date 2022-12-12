@@ -11,7 +11,7 @@
         <table>
             <tr>
                 <td>Nhập Files:</td>
-                <td><input type="file" name="image" id="fileupload"></td>
+                <td><input type="file" name="image"></td>
             </tr>
             <tr>
                 <td></td>

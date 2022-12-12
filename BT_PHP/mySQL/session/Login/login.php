@@ -15,17 +15,18 @@
                     <td>Tên đăng nhập: </td>
                     <td><input type="text" name="user" placeholder="Username" value="<?php
                     if (isset($_POST['user'])) echo $_POST['user'];
-                    ?>" required></td>
-                </tr>
-                <tr>
-                    <td>Mật Khẩu: </td>
-                    <td><input type="text" name="pass" placeholder="Password" value="<?php
-                    if (isset($_POST['pass'])) echo $_POST['pass'];
                     ?>"></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Register" name="reg"></td>
-                    <td><input type="submit" value="Login" name="btn"></td>
+                    <td>Mật Khẩu: </td>
+                    <td><input type="text" name="pass" placeholder="Password"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Register" name="reg">
+                        <input type="submit" value="Login" name="btn">
+                    </td>
                 </tr>
             </table>            
         </form>
@@ -35,7 +36,7 @@
         {
             $username = $_POST['user'];
             $password = $_POST['pass'];
-            $annouce = "";
+            $thongbao = "";
             //$_SESSION['userkeys'] = $username;
             $_SESSION['pwd'] = $password;
 
@@ -48,38 +49,24 @@
             $account = $data['username'];
             $pwd = $data['password'];
             if($dem <= 0){
-                $annouce = "Tài Khoản không tồn tại";
+                $thongbao = "Tài Khoản không tồn tại";
+                echo $thongbao;
             }else{
                 if($password != $pwd){
-                    $annouce = "Sai Mật Khẩu!";
-                    echo $annouce;
+                    $thongbao = "<br>Sai Mật Khẩu! Đây có phải bạn không?<br>";
+                    echo $thongbao . "<br>"?> <img src="<?php echo $data['avatar']; ?>" height="200" width="250"><?php
                 }else{
                     $_SESSION['userkeys'] = $username;
-                    $annouce = "Đăng nhập thành công!";
-                    header('Location:http://localhost/BT_PHP/mySQL/session/Login/Homepage/center.php');
-                    echo $annouce;
+                    $thongbao = "Đăng nhập thành công!";
+                    echo "<br>" . $thongbao . " - " . "Xin hãy vào "?> <a href="http://localhost/BT_PHP/mySQL/session/Login/Subcoding/center.php">Trang Chủ<?php
                 }
             }
-
-            /**if($username == $account and $password == $pwd)
-            {
-                echo "Đăng Nhập thành công!";
-                header('Location:http://localhost/BT_PHP/mySQL/session/Login/Homepage/center.php');
-            }elseif($password == null)
-            {
-                echo "mật khẩu trống, vui lòng nhập lại!";
-            }elseif($username != $account)
-            {
-                echo "Tài khoản bị hoặc không tồn tại, Vui lòng nhập lại!";
-            }elseif($password != $pwd){
-                echo "Mật khẩu bị sai hoặc không tồn tại, Vui lòng nhập lại!";
-            }*/
         }
 
         if(isset($_POST['reg']))
         {
-            echo "Đang cập nhật, Vui lòng quay lại sau!";
-            //header('location:http://localhost/BT_PHP/mySQL/session/Login/register.php');
+            //echo "Đang cập nhật, Vui lòng quay lại sau!";
+            header('location:http://localhost/BT_PHP/mySQL/session/Login/register.php');
         }
         ?>
     </center>
