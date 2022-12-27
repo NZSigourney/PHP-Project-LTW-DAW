@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<?php ob_start(); session_start()?>
 <html lang="vi" class="h-100">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <!-- header -->
+    <!-- header
     <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
         <div class="container">
             <a class="navbar-brand" href="https://nentang.vn">Nền tảng</a>
@@ -50,14 +50,9 @@
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="cart.html">Giỏ hàng</a>
                 </li>
-                <li class="nav-item text-nowrap">
-                    <!-- Nếu chưa đăng nhập thì hiển thị nút Đăng nhập -->
-                    <a class="nav-link" href="login.html">Đăng nhập</a>
-                </li>
             </ul>
         </div>
-    </nav>
-    <!-- end header -->
+    </nav> end header -->
 
     <main role="main">
         <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
@@ -95,7 +90,7 @@
                                         <p>Đăng ký để làm thành viên của Trang web bán hàng. Bạn sẽ được một số quyền
                                             lợi nhất
                                             định khi làm thành viên của Chúng tôi.</p>
-                                        <a class="btn btn-primary active mt-3" href="register.html">Đăng ký ngay!</a>
+                                        <a class="btn btn-primary active mt-3" href="Register.php">Đăng ký ngay!</a>
                                     </div>
                                 </div>
                             </div>
@@ -123,6 +118,8 @@
             $account = $sql_assoc['username'];
             $pwd = $sql_assoc['password'];
 
+            $type = $sql_assoc['LoaiUser'];
+
             if($dem <= 0)
             {
                 ?>
@@ -140,8 +137,21 @@
                     </div>
                     <?php
                 }else{
-                    $thongbao = "Đăng nhập thành công!";
-                    header("location:http://localhost/BT_PHP/Project_2/PHP/MainShop.php");
+                    if($type == "Customer"){
+                        header('location:product.php');
+                    }elseif($type == "Administrator"){
+                        // Command for Admin
+                        $_SESSION['userkeys'] = $sql_assoc['HoTen'];
+                        header("location:http://localhost/BT_PHP/Project_2/Pages/Admin/center.php");
+                    }else{
+                        ?>
+                        <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        Vui Lòng Kiểm tra lại Kiểu Tài khoản
+                        </div>
+                        <?php
+                    }
+                    ob_end_flush();
                 }
             }
         }
@@ -170,7 +180,7 @@
 
     <!-- Custom script - Các file js do mình tự viết -->
     <script src="../assets/js/app.js"></script>
-
+    <script src="../JS/Alerts.js"></script>
 </body>
 
 </html>

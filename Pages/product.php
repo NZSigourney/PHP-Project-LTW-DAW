@@ -32,28 +32,25 @@
                         <a class="nav-link" href="https://nentang.vn">Quản trị</a>
                     </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" href="Pages/products.php">Sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="Pages/about.php">Giới thiệu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Pages/contact.php">Liên hệ</a>
                     </li>
                 </ul>
-                <form class="form-inline mt-2 mt-md-0" method="get" action="Pages/search.php">
+                <!--<form class="form-inline mt-2 mt-md-0" method="get" action="Pages/search.php">
                     <input class="form-control mr-sm-2" type="text" placeholder="Tìm kiếm" aria-label="Search"
                         name="keyword_tensanpham">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
-                </form>
+                </form>-->
             </div>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="PHP/Cart.php">Giỏ hàng</a>
+                    <a class="nav-link" href="../Pages/Cart.php">Giỏ hàng</a>
                 </li>
                 <li class="nav-item text-nowrap">
                     <!-- Nếu chưa đăng nhập thì hiển thị nút Đăng nhập -->
-                    <a class="nav-link" href="PHP/Login.php">Đăng nhập</a>
+                    <a class="nav-link" href="../Pages/Login.php">Đăng nhập</a>
                 </li>
             </ul>
         </div>
@@ -63,9 +60,10 @@
     <!-- PHP code Start -->
     <?php
     $sql_connect = mysqli_connect("localhost", "root", "", "shopthethao");
-    $sql_cmd = "select * from hanghoa";
+    $sql_cmd = "select * from sanpham";
     $sql_query = mysqli_query($sql_connect, $sql_cmd);
     $i = 1;
+
     ?>
     <!-- PHP code End -->
 
@@ -87,16 +85,25 @@
                                 <div class="price">
                                     <span class="money"><?php echo $sql_row['Giatien'] ?> VND</span>
                                 </div>
-                                <button type="button" class="btn btn-cart">Thêm Vào Giỏ</button>
+                                <form action="" method="post">
+                                    <button type="button" class="btn btn-cart" name="btn-buy">Thêm Vào Giỏ</button>
+                                </form>
+                                <?php
+                                if(isset($_POST['btn-buy']))
+                                {
+                                    header("location:Cart.php?");
+                                }
+                                ?>
                             </div>
                         </div>
                     </li>
                     <?php
                     $i++;
                 }
-                ?>
-                <?php
-                while($sql_row = mysqli_fetch_assoc($sql_query))
+
+                //$sql_assoc = mysqli_fetch_assoc($sql_query);
+
+                /**while($sql_row = mysqli_fetch_assoc($sql_query))
                 {
                     ?>
                     <li class="main-product no-margin">
@@ -115,7 +122,7 @@
                     </li>
                     <?php
                     $i++;
-                }
+                }*/
                 ?>
             </ul>
         </div>
